@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  name: MyString
+  current_latitude: 9.99
+  current_longitude: 9.99
+
+two:
+  type: 
+  name: MyString
+  current_latitude: 9.99
+  current_longitude: 9.99
