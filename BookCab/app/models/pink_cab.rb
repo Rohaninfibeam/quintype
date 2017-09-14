@@ -1,0 +1,2 @@
+class PinkCab < Cab
+end

@@ -1,0 +1,2 @@
+class MicroCab < Cab
+end
