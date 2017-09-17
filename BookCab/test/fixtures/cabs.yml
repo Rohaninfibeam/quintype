@@ -1,13 +1,28 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  type: 
-  name: MyString
+  type: MiniCab
+  name: abc
   current_latitude: 9.99
   current_longitude: 9.99
+  aasm_state: not_assigned
+  reg_number: KA-02-1234
+  driver_id: 1
 
 two:
-  type: 
-  name: MyString
-  current_latitude: 9.99
-  current_longitude: 9.99
+  type: MiniCab
+  name: def
+  current_latitude: 7.99
+  current_longitude: 8.99
+  aasm_state: not_assigned
+  reg_number: KA-02-1235
+  driver_id: 1
+
+three:
+  type: MicroCab
+  name: ghi
+  current_latitude: 7.99
+  current_longitude: 8.99
+  aasm_state: not_assigned
+  reg_number: KA-02-5234
+  driver_id: 3

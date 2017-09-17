@@ -1,0 +1,23 @@
+<%=form_for @cab  do |cab|%>
+	Name <%=cab.text_field :name%></br>
+	Registration Number <%=cab.text_field :reg_number%></br>
+	<%=cab.hidden_field :current_latitude,:class=>"latitude"%>
+	<%=cab.hidden_field :current_longitude,:class=>"longitude"%>
+	Type <%=cab.select :type, @cab_type%></br>
+	<%=cab.submit "Create cab"%>
+<% end %>
+<script type="text/javascript">
+	var showPosition = function(position){
+		var lat = position.coords.latitude
+		var long = position.coords.longitude
+		$(function(){
+			$(".latitude").val(lat);
+			$(".longitude").val(long);
+		})
+	}
+	if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+</script>

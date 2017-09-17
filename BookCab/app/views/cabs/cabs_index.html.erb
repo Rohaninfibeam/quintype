@@ -1,0 +1,20 @@
+<%=form_tag('/show_cabs') do %>
+	<%=hidden_field_tag :latitude,'',:class=>"latitude"%>
+	<%=hidden_field_tag :longitude,'', :class=>"longitude"%>
+	<%=submit_tag "Find Cabs"%>
+<% end %>
+
+<script type="text/javascript">
+	var showPosition = function(position){
+		var lat = position.coords.latitude
+		var long = position.coords.longitude
+		$(".latitude").val(lat);
+		$(".longitude").val(long);
+	}
+	if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+
+</script>

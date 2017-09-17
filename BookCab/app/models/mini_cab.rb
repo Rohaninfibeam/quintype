@@ -1,2 +1,3 @@
 class MiniCab < Cab
+	
 end

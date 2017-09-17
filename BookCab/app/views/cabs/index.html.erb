@@ -1,0 +1,16 @@
+
+<% @cabs.each do | cab|%>
+	<div class="row">
+		<div class="column">Name: <%=cab.name%> </div>
+		<div class="column">Registration Number <%= cab.reg_number%></div>
+		<div class="column"></div> 
+	</div>
+<% end %>
+
+<style type="text/css">
+	.column{
+		width: 30%;
+		display: inline-block;
+	}
+
+</style>
