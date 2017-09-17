@@ -1,0 +1,67 @@
+<% if current_user.not_assigned? %>
+	<div class="not-assigned">
+		<%=form_tag('bookings/show_cabs') do %>
+			<%=hidden_field_tag :latitude,'',:class=>"latitude"%>
+			<%=hidden_field_tag :longitude,'', :class=>"longitude"%>
+			<%=select_tag :type, options_for_select(@cab_type,@cab_type[0]) %>
+			<%=submit_tag "Get a Cabs"%> 
+		<% end %>
+	</div>
+<% else %>
+	<div class="assigned">
+		<div id="mapid"></div>
+		<%=form_tag('bookings/cancel_cab') do %>
+			<%=hidden_field_tag :latitude,'',:class=>"latitude"%>
+			<%=hidden_field_tag :longitude,'', :class=>"longitude"%>
+			<%=submit_tag "Cancel Cab"%> 
+		<% end %>
+	</div>
+<% end %>
+
+<script type="text/javascript">
+	var create_leaflet = function(lat,long){
+		console.log(lat);
+		console.log(long);
+		L.mapbox.accessToken = 'pk.eyJ1Ijoicm9oYW5raGFydmkiLCJhIjoiY2o0enRmZ2Z3MjluYzJ4cGg3cTF6YjNtOCJ9.J3S5dHGsxHkY-NrH7im0aA';
+		var mymap = L.mapbox.map('mapid').setView([lat, long], 18);
+		L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v10').addTo(mymap);
+		debugger
+		if($(".assigned").length){
+			L.marker([<%=@cab.present? && @cab.current_latitude%>, <%=@cab.present? && @cab.current_longitude%>], {
+			    icon: L.mapbox.marker.icon({
+			        'marker-size': 'large',
+			        'marker-symbol': 'car',
+			        'marker-color': '#fa0'
+			    })
+			}).addTo(mymap);
+		}
+		L.marker([lat, long], {
+		    icon: L.mapbox.marker.icon({
+		        'marker-size': 'large',
+		        'marker-color': '#fa0'
+		    })
+		}).addTo(mymap);
+	}
+	var showPosition = function(position){
+		var lat = position.coords.latitude
+		var long = position.coords.longitude
+		$(function(){
+			$(".latitude").val(lat);
+			$(".longitude").val(long);
+			if ($("#mapid").length){
+				create_leaflet(lat,long);
+			}
+		})
+	}
+	if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+    }
+
+</script>
+
+<style type="text/css">
+	#mapid{
+		height: 500px;
+	}
+</style>

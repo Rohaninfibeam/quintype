@@ -1,9 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  email: MyString
+  email: rohanbr148@gmail.com
+  current_lat: 12.03
+  current_long: 13.22
+  aasm_state: not_assigned
 
 two:
-  name: MyString
-  email: MyString
+  email: b@c.com
+  current_lat: 12.03
+  current_long: 13.22
+  aasm_state: not_assigned
+
+three:
+  email: sedf@c.com
+  current_lat: 12.03
+  current_long: 10.22
+  aasm_state: not_assigned
+
