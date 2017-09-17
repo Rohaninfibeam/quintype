@@ -1,0 +1,80 @@
+<div class="driver-index">
+	<%if @cab.assigned? %>
+		<div class="assigned">
+			<div id="mapid"></div>
+			<div class="stop_ride">
+				<%=form_tag('drivers/start_ride') do %>
+					<%=hidden_field_tag :latitude,'',:class=>"latitude"%>
+					<%=hidden_field_tag :longitude,'', :class=>"longitude"%>
+					<%=submit_tag "Start ride"%> 
+				<% end %>
+			</div>
+		</div>
+	<% elsif @cab.ride_started?%>
+		<div class="ride_started">
+			<div id="mapid"></div>
+			<div class="stop_ride">
+				<%=form_tag('drivers/end_ride') do %>
+					<%=hidden_field_tag :latitude,'',:class=>"latitude"%>
+					<%=hidden_field_tag :longitude,'', :class=>"longitude"%>
+					<%=submit_tag "End ride"%> 
+				<% end %>
+			</div>
+		</div>
+	<% else %>
+		<div class="search-cab">
+			Searching for user ...
+		</div>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	var create_leaflet = function(lat,long){
+		L.mapbox.accessToken = 'pk.eyJ1Ijoicm9oYW5raGFydmkiLCJhIjoiY2o0enRmZ2Z3MjluYzJ4cGg3cTF6YjNtOCJ9.J3S5dHGsxHkY-NrH7im0aA';
+		var mymap = L.mapbox.map('mapid').setView([lat, long], 18);
+		L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v10').addTo(mymap);
+		debugger
+		L.marker([lat, long], {
+		    icon: L.mapbox.marker.icon({
+		        'marker-size': 'large',
+		        'marker-symbol': 'car',
+		        'marker-color': '#fa0'
+		    })
+		}).addTo(mymap);
+		if (!$(".search-cab").length){
+			L.marker([<%=@user.present? && @user.current_lat%>, <%=@user.present? && @user.current_long%>], {
+			    icon: L.mapbox.marker.icon({
+			        'marker-size': 'large',
+			        'marker-color': '#fa0'
+			    })
+			}).addTo(mymap);
+		}
+	}
+	var showPosition = function(position){
+		var lat = position.coords.latitude
+		var long = position.coords.longitude
+		$(function(){
+			$(".latitude").val(lat);
+			$(".longitude").val(long);
+			if ($("#mapid").length){
+				create_leaflet(lat,long);
+			}
+		})
+	}
+	if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+
+    }
+    $(function(){
+    	$.ajax({
+
+    	})
+    })
+</script>
+
+<style type="text/css">
+	#mapid{
+		height: 250px;
+	}
+</style>

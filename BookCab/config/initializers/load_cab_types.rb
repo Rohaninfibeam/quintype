@@ -1,0 +1,1 @@
+BookCab::Application.config.CAB_TYPE = YAML.load_file("#{Rails.root}/config/cabs.yml")
